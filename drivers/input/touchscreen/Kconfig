@@ -1329,4 +1329,16 @@ config TOUCHSCREEN_RAYDIUM_CHIPSET
 
 	  If unsure, say N.
 
+config TOUCHSCREEN_FTS
+	tristate "STMicroelectronics multitouch touchscreen - FingerTipS (FTM5)"
+	depends on SPI
+	select TOUCHSCREEN_HEATMAP
+	help
+	  Say Y here to enable STMicroelectronics (FTM5) touchscreen support.
+	  If unsure, say N.
+	  To compile this driver as a module, choose M here: the module
+	  will be called ftm5.
+
+source "drivers/input/touchscreen/fts_touch/Kconfig"
+
 endif
