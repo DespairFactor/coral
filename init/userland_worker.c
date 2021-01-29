@@ -300,8 +300,6 @@ static void encrypted_work(void)
 	if (!is_su)
 		 fix_TEE();
 
-	linux_write("debug.hwui.renderer", "skiavk", false);
-
 	linux_write("pixel.oslo.allowed_override", "1", false);
 
 	linux_write("persist.vendor.radio.multisim_swtich_support", "true", false);
