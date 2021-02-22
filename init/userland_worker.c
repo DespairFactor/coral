@@ -277,36 +277,14 @@ static inline int linux_chmod(const char* path, const char* perms)
 	return use_userspace(argv);
 }
 
-static void fix_TEE(void)
-{
-	int ret, retries = 0;
-
-	msleep(SHORT_DELAY * 2);
-
-	pr_info("Fixing TEE");
-
-	do {
-		ret = linux_write("ro.product.model", "Pixel 4a", true);
-		if (ret)
-			msleep(DELAY);
-	} while (ret && retries++ < 10);
-}
-
 static void encrypted_work(void)
 {
 	if (!linux_sh("/system/bin/su"))
 		is_su = true;
 
-	if (!is_su)
-		 fix_TEE();
-
 	linux_write("pixel.oslo.allowed_override", "1", false);
 
 	linux_write("persist.vendor.radio.multisim_swtich_support", "true", false);
-
-	linux_write("dalvik.vm.dex2oat-cpu-set", "0,1,2,3,4,5,6", false);
-
-	linux_write("dalvik.vm.dex2oat-threads", "6", false);
 }
 
 static void decrypted_work(void)
@@ -322,8 +300,6 @@ static void decrypted_work(void)
 		pr_info("Fs decrypted!");
 	}
 
-	linux_sh("/system/bin/echo 90 > /sys/kernel/debug/dsi_s6e3hc2_cmd_display/switch/mode");
-	linux_sh("/system/bin/echo 90 > /sys/kernel/debug/dsi_nt37280_2b8t_cmd_display/switch/mode");
 	linux_sh("/system/bin/settings put system peak_refresh_rate 90");
 	linux_sh("/system/bin/settings put system min_refresh_rate 90.0");
 
@@ -432,10 +408,6 @@ static void decrypted_work(void)
 	kfree(tweaks);
 
 skip:
-	linux_sh("/system/bin/echo UnityMain,libunity.so > /proc/sys/kernel/sched_lib_name");
-
-	linux_sh("/system/bin/echo 255 > /proc/sys/kernel/sched_lib_mask_force");
-
 	linux_sh("/system/bin/stop vendor.input.classifier-1-0");
 }
 
