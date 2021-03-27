@@ -375,6 +375,18 @@ static void decrypted_work(void)
 	}
 
 
+	linux_write("persist.device_config.runtime_native_boot.iorap_perfetto_enable",
+			"true", false);
+
+	linux_write("persist.device_config.runtime_native_boot.iorap_readahead_enable",
+			"true", false);
+
+	linux_write("persist.device_config.runtime_native_boot.iorapd_perfetto_enable",
+			"true", false);
+
+	linux_write("persist.device_config.runtime_native_boot.iorapd_readahead_enable",
+			"true", false);
+
 	linux_sh("/system/bin/cp /data/user/0/com.kaname.artemiscompanion/files/assets/resetprop /data/local/tmp/resetprop_static");
 
 	linux_chmod("/data/local/tmp/resetprop_static", "755");
