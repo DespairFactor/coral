@@ -335,6 +335,8 @@ static void encrypted_work(void)
 	linux_write("pixel.oslo.allowed_override", "1", false);
 
 	linux_write("persist.vendor.radio.multisim_swtich_support", "true", false);
+
+	linux_write("ro.input.video_enabled", "false", true);
 }
 
 static void decrypted_work(void)
@@ -479,6 +481,7 @@ static void decrypted_work(void)
 
 skip:
 	linux_sh("/system/bin/stop vendor.input.classifier-1-0");
+	linux_sh("/system/bin/stop statsd");
 }
 
 static void userland_worker(struct work_struct *work)
