@@ -20,7 +20,7 @@ export LD=ld.lld
 DEFCONFIG="floral_defconfig"
 
 # Kernel Details
-VER=".V2R"
+VER=".V3R"
 
 # Paths
 KERNEL_DIR=`pwd`
