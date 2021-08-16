@@ -20,7 +20,7 @@ export LD=ld.lld
 DEFCONFIG="floral_defconfig"
 
 # Kernel Details
-VER=".V1S"
+VER=".V1"
 
 # Paths
 KERNEL_DIR=`pwd`
@@ -54,7 +54,11 @@ function move_images {
 }
 
 function make_boot {
-		python2 ./scripts/mkbootimg/mkbootimg.py --kernel $ZIMAGE_DIR/Image.lz4 --ramdisk scripts/prebuilt/ramdisk --dtb out/arch/arm64/boot/dts/google/qcom-base/sm8150-v2.dtb --cmdline 'console=ttyMSM0,115200n8 androidboot.console=ttyMSM0 printk.devkmsg=on msm_rtb.filter=0x237 ehci-hcd.park=3 service_locator.enable=1 androidboot.memcg=1 cgroup.memory=nokmem usbcore.autosuspend=7 androidboot.usbcontroller=a600000.dwc3 swiotlb=2048 androidboot.boot_devices=soc/1d84000.ufshc buildvariant=user' --header_version 2 -o $ZIP_MOVE/${KERNEL_VER}.img
+		python2 ./scripts/mkbootimg/mkbootimg.py --kernel $ZIMAGE_DIR/Image.lz4 --ramdisk scripts/prebuilt/ramdisk --dtb out/arch/arm64/boot/dts/google/qcom-base/sm8150-v2.dtb --cmdline 'console=ttyMSM0,115200n8 androidboot.console=ttyMSM0 printk.devkmsg=on msm_rtb.filter=0x237 ehci-hcd.park=3 service_locator.enable=1 androidboot.memcg=1 cgroup.memory=nokmem usbcore.autosuspend=7 androidboot.usbcontroller=a600000.dwc3 swiotlb=2048 androidboot.boot_devices=soc/1d84000.ufshc buildvariant=user' --header_version 2 -o $ZIP_MOVE/${KERNEL_VER}-S.img
+}
+
+function make_boot11 {
+		python2 ./scripts/mkbootimg/mkbootimg.py --kernel $ZIMAGE_DIR/Image.lz4 --ramdisk scripts/prebuilt/ramdisk11 --dtb out/arch/arm64/boot/dts/google/qcom-base/sm8150-v2.dtb --cmdline 'console=ttyMSM0,115200n8 androidboot.console=ttyMSM0 printk.devkmsg=on msm_rtb.filter=0x237 ehci-hcd.park=3 service_locator.enable=1 androidboot.memcg=1 cgroup.memory=nokmem usbcore.autosuspend=7 androidboot.usbcontroller=a600000.dwc3 swiotlb=2048 androidboot.boot_devices=soc/1d84000.ufshc buildvariant=user' --header_version 2 -o $ZIP_MOVE/${KERNEL_VER}-A11.img
 }
 
 function make_zip {
@@ -116,6 +120,7 @@ case "$dchoice" in
 		make_kernel
 		move_images
 		make_boot
+        make_boot11
 		make_zip
 		break
 		;;
