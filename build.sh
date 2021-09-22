@@ -10,17 +10,17 @@ clear
 
 # Resources
 THREAD="-j$(grep -c ^processor /proc/cpuinfo)"
-export CLANG_PATH=~/android/clang/clang-r428724/bin
+export CLANG_PATH=~/android/clang/clang-r416183b/bin
 export PATH=${CLANG_PATH}:${PATH}
 export CLANG_TRIPLE=aarch64-linux-gnu-
 export CROSS_COMPILE=~/android/aarch64-linux-android-4.9/bin/aarch64-linux-android-
 export CROSS_COMPILE_ARM32=${HOME}/android/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-
-export LD_LIBRARY_PATH=${HOME}/android/clang/clang-r428724/lib64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=${HOME}/android/clang/clang-r416183b/lib64:$LD_LIBRARY_PATH
 export LD=ld.lld
 DEFCONFIG="floral_defconfig"
 
 # Kernel Details
-VER=".V3"
+VER=".V4"
 
 # Paths
 KERNEL_DIR=`pwd`
